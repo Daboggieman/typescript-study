@@ -398,7 +398,7 @@ new User("x", "Ada");      // ERROR — constructor is private
 - [ ] Inside a static method, what is `this`?
 - [ ] Why does an instance method need `Counter.count` rather than `this.count`?
 - [ ] What does `private constructor` plus a `static create` buy you?
-- [ ] Which return type makes a static factory work correctly in subclasses, and what goes wrong without it?
+- [ ] Write the signature of a static factory that returns the right subclass, and explain what the `this` parameter is doing there.
 - [ ] Why is static mutable state dangerous, and what is the alternative for a plain constant?
 
 ---
@@ -423,6 +423,6 @@ Open `exercises.ts` in this folder:
 3. Try `this.count` from an instance method and read the compile error.
 4. Write a `User` with a `private constructor` and a `static create`.
 5. Add `static fromJSON` and confirm `new User(...)` no longer compiles.
-6. Write `static create(): this { return new this(); }` and show a subclass gets the right type.
+6. Write `static create<T extends Animal>(this: new () => T): T { return new this(); }` and show a subclass gets the right type.
 7. Change it to `static create(): Animal { return new Animal(); }` and watch the subclass factory lie.
-8. Write a `static {}` block that builds a `Map`, and compare it with the IIFE spelling.
+8. Write a `static {}` block that fills a `Map`, and confirm `readonly` did not stop the `.set` calls.
