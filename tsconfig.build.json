@@ -1,0 +1,13 @@
+{
+  // `npm run build` — the same checks as tsconfig.json, but this one actually
+  // writes JavaScript to dist/. See CURRICULUM/21_tsconfig_deep_dive.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist",
+    "rootDir": ".",
+    "declaration": true,
+    "sourceMap": true
+  },
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}

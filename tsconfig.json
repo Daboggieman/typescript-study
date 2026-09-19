@@ -1,0 +1,47 @@
+{
+  // The one config file that decides how strict TypeScript is with you.
+  // Read CURRICULUM/21_tsconfig_deep_dive/lecture.md for what each option does.
+  "compilerOptions": {
+    // --- What flavour of JavaScript we target ---
+    // ES2023 gives us the non-mutating array methods (toSorted, toReversed,
+    // toSpliced, with) and findLast. Node 22 supports all of it natively.
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM"],
+    "types": ["node"],
+
+    // --- How modules are resolved ---
+    // NodeNext = the real Node.js ESM rules, including the ".js" extension
+    // you must write on relative imports. See 21_tsconfig_deep_dive.
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+
+    // --- The part that matters most ---
+    // "strict" switches on a whole family of checks at once.
+    "strict": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // Deliberately OFF: with these on, every un-attempted TODO stub in the
+    // exercises would be a compile error before you have written a line.
+    // Turn them ON once you want the extra tidiness.
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+
+    // Also deliberate: noUncheckedIndexedAccess would make every `arr[0]`
+    // typed `T | undefined`, forcing `!` into beginner exercises. It is
+    // explained in 21_tsconfig_deep_dive as a switch worth turning on later.
+    "noUncheckedIndexedAccess": false,
+
+    // --- Housekeeping ---
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
