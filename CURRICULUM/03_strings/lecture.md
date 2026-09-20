@@ -227,6 +227,77 @@ For anything user-facing, count with `Intl.Segmenter` or `[...s].length`:
 
 > **Practical rule:** for ASCII and normal European text you will never notice. The moment emoji or accents enter the picture — usernames, tweet lengths, password rules — assume `length` is lying to you and reach for `Intl.Segmenter`.
 
+### TypeScript String Features
+
+TypeScript enhances JavaScript strings with additional type safety and features:
+
+#### Template Literal Types
+TypeScript can infer specific string literal types from template literals:
+
+```ts
+type Color = "red" | "blue" | "green";
+type Size = "small" | "medium" | "large";
+
+type CSSClass = `bg-${Color}-${Size}`;
+// CSSClass is "bg-red-small" | "bg-red-medium" | ... | "bg-green-large"
+
+const className: CSSClass = `bg-${color}-${size}`;
+// TypeScript validates that color and size produce a valid combination
+```
+
+#### String Manipulation with Type Safety
+When working with string manipulation functions, TypeScript helps ensure type safety:
+
+```ts
+// Function that extracts a filename from a path
+function getFileName(path: string): string {
+    return path.split("/").pop() || "";
+}
+
+// With TypeScript, you know the return value is definitely a string
+const fileName = getFileName("/home/user/document.pdf");
+// fileName is inferred as string, not string | null
+```
+
+#### String Enums
+TypeScript allows string-based enums for better readability:
+
+```ts
+enum Direction {
+    Up = "UP",
+    Down = "DOWN",
+    Left = "LEFT",
+    Right = "RIGHT",
+}
+
+// Usage
+function move(dir: Direction) {
+    console.log(`Moving ${dir}`); // Prints the string value
+}
+
+move(Direction.Up); // "Moving Up"
+```
+
+#### String Literal Types in Practice
+Using string literal types for state management:
+
+```ts
+type LoadingState = "idle" | "loading" | "success" | "error";
+
+interface AppState {
+    status: LoadingState;
+    data?: unknown;
+    error?: string;
+}
+
+const state: AppState = {
+    status: "loading"
+};
+
+// TypeScript prevents invalid states:
+// state.status = "completed"; // Error: Type '"completed"' is not assignable to type 'LoadingState'.
+```
+
 ---
 
 ## 10. Regex, Briefly

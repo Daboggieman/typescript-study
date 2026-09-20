@@ -4,6 +4,8 @@ Welcome to your first TypeScript lesson! TypeScript is a language built on top o
 
 It is used for Angular, React and Vue apps, Node.js backends, VS Code itself, and most large JavaScript codebases in the world.
 
+> **Why TypeScript?** While JavaScript is flexible, that flexibility can lead to runtime errors that are hard to debug. TypeScript adds static typing to catch these errors during development, making your code more reliable and easier to refactor.
+
 ---
 
 ## 1. What TypeScript Actually Is
@@ -23,6 +25,21 @@ This matters for one big reason:
 > **Types exist only while you are developing. They cost nothing at runtime, and they cannot check data that arrives while the program is running.**
 
 So `"hello"` being a string is a fact TypeScript tracks for you at your desk — but if a user types `"hello"` into a form, the type tells you nothing about whether it was *supposed* to be a number. That gap is the source of every "but it typechecked!" bug, and we will come back to it in [18_unions_and_narrowing](../18_unions_and_narrowing/lecture.md).
+
+### TypeScript vs JavaScript: Key Differences
+
+While TypeScript is a superset of JavaScript, it adds several important features:
+
+1. **Static Type Checking** - Catch errors at compile time, not runtime
+2. **Interfaces** - Define contracts for objects and function signatures
+3. **Enums** - Define a set of named constants
+4. **Generics** - Create reusable, type-safe components
+5. **Advanced Types** - Unions, intersections, conditional types, and more
+6. **Namespaces** - Organize code and avoid naming conflicts
+7. **Decorators** - Add metadata and modify class behavior (experimental)
+8. **Module System** - ES6 modules with enhanced type safety
+
+All of these features are erased during compilation, leaving clean, standard JavaScript that runs anywhere.
 
 ---
 
@@ -44,6 +61,15 @@ npm run ex hello.ts
 - `console.log()` is the function that prints to the terminal. It is JavaScript's `print()`, and it lives on a global `console` object provided by Node.js and by browsers.
 - `"Hello, World!"` is a **string** (text data). Strings use double quotes (`"`), single quotes (`'`), or backticks (`` ` ``).
 - **The line ends with a semicolon.** In JavaScript and TypeScript, semicolons mark the end of a statement. They are technically optional — JavaScript inserts them for you — but TypeScript is stricter about when it will guess, so write them. Your formatter will handle the details.
+
+### Type Safety in Action
+Even in this simple example, TypeScript is working for you:
+- If you accidentally wrote `console.log(123);` (a number instead of a string), TypeScript would still allow it because `console.log()` accepts any type.
+- But if you tried to assign a number to a variable explicitly typed as string, TypeScript would catch it:
+  ```ts
+  let message: string = "Hello";
+  message = 123; // ❌ Error: Type 'number' is not assignable to type 'string'.
+  ```
 
 ---
 
@@ -75,6 +101,36 @@ const broken: number = "not a number";
 That is a **directive comment**, and it is your escape hatch when you know better than the compiler. A close cousin is `// @ts-ignore`, which silences the error but will *not* complain if the error disappears. Prefer `@ts-expect-error`: it is self-cleaning, because the day the bug is fixed, the directive itself becomes an error.
 
 You will meet the full family of directive comments in [24_declaration_files](../24_declaration_files/lecture.md) and [21_tsconfig_deep_dive](../21_tsconfig_deep_dive/lecture.md). For now, know they exist — and that reaching for one is a decision worth a comment explaining *why*.
+
+### JSDoc Comments for Documentation
+
+TypeScript also understands JSDoc comments, which can provide rich type information and documentation:
+
+```ts
+/**
+ * Calculates the sum of two numbers.
+ * @param a - The first number
+ * @param b - The second number
+ * @returns The sum of a and b
+ */
+function add(a: number, b: number): number {
+    return a + b;
+}
+
+/**
+ * Represents a user in the system.
+ */
+interface User {
+    /** The user's unique identifier */
+    id: number;
+    /** The user's email address */
+    email: string;
+    /** The user's full name */
+    fullName: string;
+}
+```
+
+These comments appear in IDE tooltips and can be used by documentation generators.
 
 ---
 

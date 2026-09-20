@@ -212,6 +212,68 @@ if (value === null) {
 
 > **The takeaway:** `typeof` is a runtime JavaScript operator, not a TypeScript one. It sees the *value*, and only knows eight crude buckets. The `typeof` *type* operator, which is a different thing wearing the same name, appears in [17_interfaces_and_aliases](../17_interfaces_and_aliases/lecture.md).
 
+### TypeScript's Advanced Type System
+
+Beyond the primitive types, TypeScript offers powerful type system features:
+
+#### Union Types
+Allow a variable to be one of several types:
+```ts
+let score: number | string = 95; // Can be number or string
+score = "95 points"; // OK
+score = 100; // OK
+// score = true; // Error: Type 'boolean' is not assignable to type 'number | string'.
+```
+
+#### Intersection Types
+Combine multiple types into one:
+```ts
+interface Person {
+    name: string;
+    age: number;
+}
+
+interface Employee {
+    employeeId: number;
+    department: string;
+}
+
+type EmployeePerson = Person & Employee;
+// EmployeePerson has all properties from both interfaces
+```
+
+#### Literal Types
+Specify exact values a variable can have:
+```ts
+type Direction = "north" | "south" | "east" | "west";
+let currentDirection: Direction = "north";
+// currentDirection = "northeast"; // Error
+
+type HttpStatus = 200 | 404 | 500;
+let status: HttpStatus = 200;
+```
+
+#### Nullish Coalescing and Optional Chaining
+Handle null and undefined values safely:
+```ts
+// Nullish coalescing (??) - returns right side if left is null or undefined
+const userInput = null;
+const defaultValue = "guest";
+const displayName = userInput ?? defaultValue; // "guest"
+
+// Optional chaining (?.) - safely access nested properties
+interface User {
+    profile?: {
+        settings?: {
+            theme: string;
+        }
+    }
+}
+
+const user: User = {};
+const theme = user.profile?.settings?.theme ?? "light"; // "light"
+```
+
 ---
 
 ## 🧠 Try It Yourself
