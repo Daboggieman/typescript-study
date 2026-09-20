@@ -51,3 +51,27 @@ const sentence = "The quick brown fox jumps over the lazy dog";
 // TODO: Exercise 8
 // Find the first index of "fox" and print the boolean "is it there?" using includes.
 // Then explain in a comment why `if (sentence.indexOf("cat"))` would always be true.
+
+
+// TODO: Exercise 9: Template Literal Types
+// Create a type for CSS class names using template literal types
+type Size = "small" | "medium" | "large";
+type Color = "red" | "blue" | "green";
+// type ClassName = `btn-${Size}-${Color}`;
+// const btnClass: ClassName = `btn-${size}-${color}`;
+// TODO: Define size and color variables and create a valid className
+// TODO: Try creating an invalid className and observe the type error
+
+
+// TODO: Exercise 10: String Enums
+// Create a string enum for UI directions and use it in a function
+enum Direction {
+    Up = "UP",
+    Down = "DOWN",
+    Left = "LEFT",
+    Right = "RIGHT"
+//}
+// function move(direction: Direction) {
+//     console.log(`Moving ${direction}`);
+// }
+// TODO: Test the function with valid and invalid values
